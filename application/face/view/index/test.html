@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+	<script src="http://cdnaliyun.oss-cn-hangzhou.aliyuncs.com/js/jquery-1.11.3.min.js"></script>
+	<title>上传文件</title>
+	<style type="text/css">
+        h1{text-align: center;margin-bottom: 20px;}
+        div{
+            width:100%;
+        }
+        #fm{width: 300px;margin: 0 auto;}
+    </style>
+</head>
+<body>
+<h1>多图上传，test-api图片上传</h1>
+<form action="http://localhost/wxmail/public/?s=/qiniuapi/index/upload" enctype="multipart/form-data" method="post" id="fm">
+		<div><input type="file" name="photo[]" multiple="multiple"/></div>
+		<div style="margin-top:20px;text-align:right;"><input type="submit" value="提交" ></div>
+</form>
+<div style="width:300px;margin:0 auto;"><a href="http://wangxiaohuawsd.cn/php-qiniu-demo/list.php">查询列表</a></div>
+
+<textarea class="text"></textarea>
+<button class="btn" type="button">btn</button>
+
+<hr>
+<script>
+
+	$(function () {
+
+
+        var res2 = {"status":1,"content":"20180601_15-13-14_5b10f20aadc84.jpeg"};
+
+        console.log(res2);
+        console.log(typeof res2);
+
+
+
+
+        $(".btn").click(function () {
+            //向接口提交数据，并返回后端提示
+            $.ajax({
+                url: "http://td.t0fdt.cn/tpai/public/?s=/face/index/save_base64_img",
+                type: "POST",
+                //dataType: "json",//已经默认json
+                //async: true,//已经默认true
+                data:{
+                    base64: $(".text").val()
+                },
+                success: function(data, status){
+                    console.log("数据：" + data+"-status："+status); // data为string类型
+					var res = JSON.parse(data); // json字符串转换成json对象
+
+                    console.log(res.content);
+
+
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                }
+            })
+        })
+
+    })
+
+</script>
+
+</body>
+</html>
